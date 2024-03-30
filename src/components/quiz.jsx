@@ -1,11 +1,16 @@
 import React, {useState, Suspense} from 'react'
+import { useParams, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { react_basic } from '../base';
+import go_back from '../assets/go_back.png';
 import 'react-toastify/dist/ReactToastify.css';
-function Quiz({questions}) {
+function Quiz() {
+  const gg = useParams();
     const [quizCount, setQuizCount] = useState(0);
         const [lastEl, setLastEl] = useState(false);
         const [score, setScore] = useState(0);
-        const quiz = questions[quizCount];
+        const quiz = react_basic[Number(gg.quizName)].gg[quizCount];
+        const quiz_length = react_basic[Number(gg.quizName)].gg.length;
         function onFail() {
           toast.warn('You are fail', {
             position: "top-center",
@@ -31,7 +36,7 @@ function Quiz({questions}) {
             });
         }
         const onNextQuestion = (id, answer) => {
-          if(id === questions[questions.length-1].id) {
+          if(id === quiz_length) {
             if(answer === false) {
               onFail();
               setLastEl(true)
@@ -59,9 +64,9 @@ function Quiz({questions}) {
           <>
             {lastEl === false && <Suspense fallback={<>GG</>}>
               <div className='quiz'>
-              <p>{quizCount+1}/{questions.length} {quiz.title}</p>
+              <p>{quizCount+1}/{quiz_length} {quiz.title}</p>
               <ul>
-              {quiz && quiz.questions.map(item => (
+              {gg.quizName && quiz.questions.map(item => (
                 <li key={item.question} onClick={() => onNextQuestion(quiz.id, item.answer)}>
                   {item.question}
                 </li>
@@ -69,12 +74,12 @@ function Quiz({questions}) {
               </ul>
               </div>
             </Suspense>}
-            {lastEl === true && <div>
-              your Score {score}/{questions.length}
+            {lastEl === true && <div className='score_block'>
+              <Link to='/Know-It-All'><img src={go_back} alt="" /></Link>
+              your Score {score}/{quiz_length}
               </div>}
               <ToastContainer />
           </>
         )
 }
-
 export default Quiz

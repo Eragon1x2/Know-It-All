@@ -96,3 +96,38 @@ table {
 .quiz ul li:not(:last-child) {
   margin-bottom: 20px;
 }
+
+.main-page {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 20px;
+  justify-content: center;
+
+}
+
+.main-page a {
+  width: 300px;
+  color: white;
+  height: 150px;
+  border-radius: 5px;
+  background-color: #5f43b2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.score_block {
+  display: flex;
+  flex-direction: column;
+}
+.score_block a {
+  margin-bottom: 20px;
+}
+.score_block a img {
+  margin: 0;
+  padding: 0;
+  width: 50px;
+  height: 50px;
+}
